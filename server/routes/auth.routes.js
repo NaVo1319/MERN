@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken")
 const config = require("config")
 const {check, validationResult} = require("express-validator")
 const authMiddleware = require('../middleware/auth.middleware')
+const fileService = require('../service/fileService')
+const File = require('../models/File')
 
 
 //Регистрация
@@ -37,6 +39,8 @@ async(req,res)=>{
         const user = new User({email, password: hashPassword})
         //Сохраняем пользователя
         await user.save()
+        //Создаем папку для файлов
+        await fileService.createDir(new File({user:user.id, name: ''}))
         return res.json({message:"User was created"})
     } catch (e) {
         console.log(e)
