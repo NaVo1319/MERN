@@ -24,7 +24,9 @@ const Navbar_ = () =>{
             >
                 {!isAuth &&<Nav.Link href="/registration">Registration</Nav.Link>}
                 {!isAuth &&<Nav.Link href="/login">Login</Nav.Link>}
+                {isAuth &&<Nav.Link href="/profile">Profile</Nav.Link>}
                 {isAuth &&<Nav.Link onClick={()=>dispatch(logOut())}>Login Out</Nav.Link>}
+                
             </Nav>
             <Form className="d-flex">
                 <FormControl

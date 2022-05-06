@@ -10,6 +10,9 @@ const fileService = require('../service/fileService')
 const File = require('../models/File')
 
 
+
+
+
 //Регистрация
 router.post('/registration',
 [
@@ -40,7 +43,7 @@ async(req,res)=>{
         //Сохраняем пользователя
         await user.save()
         //Создаем папку для файлов
-        await fileService.createDir(new File({user:user.id, name: ''}))
+        await fileService.ceateDir(new File({user:user.id, name: ''}))
         return res.json({message:"User was created"})
     } catch (e) {
         console.log(e)

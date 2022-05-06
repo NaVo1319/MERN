@@ -3,6 +3,8 @@ const File = new Schema({
     name: {type: String, required: true},
     type: {type: String, required: true},
     accessLink: {type:String},
+    path: {type: String, default: ''},
+    date: {type: Date, default: Date.now},
     size: {type: Number, default: 0},
     user: {type: ObjectId, ref: "User"},
 })

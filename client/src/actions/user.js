@@ -39,7 +39,7 @@ export const auth =  ()=>{
                 localStorage.setItem('token', response.data.token)
             }
         } catch (error) {
-            alert(error)
+            alert("error")
             localStorage.removeItem('token')
         }
     }
