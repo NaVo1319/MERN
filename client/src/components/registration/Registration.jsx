@@ -3,11 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Form,Button, Modal } from "react-bootstrap";
 import { propTypes } from "react-bootstrap/esm/Image";
 import { registration } from "../../actions/user";
+import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import {setUser} from "../../reducers/userReducer"
 const Registration = () =>{
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    let navigate = useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault();
           try {
@@ -16,6 +18,7 @@ const Registration = () =>{
                 password
                 })
             console.log(email+" "+password)
+            navigate('/login');
           } catch (err) {
               console.error(1,err);
           }

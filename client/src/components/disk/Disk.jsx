@@ -10,11 +10,12 @@ const Disk = () =>{
     const dispatch = useDispatch()
     const currentDir=useSelector(state=>state.file.currentDir)
     useEffect(()=>{
-        dispatch(getFiles(currentDir),[currentDir])
+        dispatch(getFiles(),[])
     })
     const fileUploadHandler=(event)=>{
         const files=[...event.target.files]
         files.forEach(file=>dispatch(uploadFile(file,currentDir)))
+        event.target.value = null;
     }
     return(
         <Container fluid>
@@ -34,14 +35,11 @@ const Disk = () =>{
             </Row>
             <Row>
             <Form>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Input File</Form.Label>
-                            <Form.Control multiple={true} onChange={(event)=>fileUploadHandler(event)} type="file"/>
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Input File</Form.Label>
+                    <Form.Control multiple={true} onChange={(event)=>fileUploadHandler(event)} type="file"/>
+                </Form.Group>
+            </Form>
             </Row>
             <FileList/>
         </Container>

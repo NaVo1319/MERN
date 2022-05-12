@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Form,Button, Modal } from "react-bootstrap"
 import {useDispatch} from "react-redux"
@@ -8,8 +9,8 @@ import {setUser} from "../../reducers/userReducer"
 const Login = () =>{
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    let navigate = useNavigate()
     const dispatch = useDispatch()
-
     const handleSubmit = async (e) => {
         e.preventDefault();
           try {
@@ -19,6 +20,7 @@ const Login = () =>{
                 })
             dispatch(setUser(response.data.user))
             localStorage.setItem('token', response.data.token)
+            navigate('/profile');
           } catch (err) {
               console.error(1,err);
           }
@@ -29,7 +31,6 @@ const Login = () =>{
     <Modal.Header>
         <Modal.Title>Login in</Modal.Title>
     </Modal.Header>
-
     <Modal.Body>
         <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">

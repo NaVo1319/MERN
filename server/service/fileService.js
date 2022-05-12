@@ -19,3 +19,6 @@ exports.ceateDir = (file)=>{
         }
     }))
 }
+exports.deleteFile=(file)=>{
+    fs.unlinkSync(file.path)
+}

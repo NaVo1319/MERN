@@ -5,7 +5,9 @@ const fileController = require('../controllers/fileController')
 
 router.post('',authMiddleware, fileController.create)
 router.get('',authMiddleware, fileController.getFiles)
-router.get('/all',authMiddleware, fileController.getAllFiles)
+router.get('/all', fileController.getAllFiles)
 router.post('/upload',authMiddleware, fileController.uploadFile)
+router.get('/:idUser/:idFile',fileController.downloadFile)
+router.delete('/:idUser/:idFile',authMiddleware,fileController.deleteFile)
 
 module.exports = router

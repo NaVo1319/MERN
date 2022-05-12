@@ -30,8 +30,7 @@ exports.getFiles = async(req,res)=>{
 exports.getAllFiles = async(req,res)=>{
     try {
         console.log(req.user)
-        const files = await File.find({type: 'jpg'})
-        console.log(files)
+        const files = await File.find()
         return res.json(files)
     } catch (e) {
         console.log(e)
@@ -52,9 +51,10 @@ exports.uploadFile = async(req,res)=>{
             return res.status(400).json({message: "File already exist"})
         }
         file.mv(path)
-        const type = file.name.split('.').pop()
+        const data=file.name.split('.')
+        const type = data.pop()
         const dbFile = new File({
-            name: file.name,
+            name: data.pop(),
             type,
             size: file.size,
             path,
@@ -66,5 +66,29 @@ exports.uploadFile = async(req,res)=>{
     } catch (error) {
         console.log(error)
         return res.status(400).json(error)
+    }
+}
+exports.downloadFile = async(req, res)=> {
+    try {
+        const file = await File.findOne({name: req.params.idFile})
+        var filepath = 'C:\\Users\\voham\\OneDrive\\Рабочий стол\\Sem6\\CurseWork\\basket-gallery\\server\\files\\'+req.params.idUser+'\\'+req.params.idFile+'.'+file.type
+        res.sendFile(filepath);
+    } catch (e) {
+        return res.status(400).json(e)
+    }
+}
+exports.deleteFile=async(req,res)=>{
+    try {
+        const file = await File.findOne({name:req.params.idFile,user:req.user.id})
+        if (!file){
+            return res.status(400).json({message:'file not found'})
+        }
+        else{
+            FileService.deleteFile(file)
+            await file.remove()
+            return res.json({message:'File was delete'})
+        }
+    } catch (e) {
+        console.log(e)
     }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import Navbar from "./components/navbar/Navbar"
-import {BrowserRouter, Route, Routes,Navigate} from 'react-router-dom'
+import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom'
 import Registration from "./components/registration/Registration"
 import Login from "./components/registration/Login"
 import { useDispatch, useSelector } from "react-redux"
@@ -19,15 +19,17 @@ function App() {
     <BrowserRouter>
     <div>
       <Navbar/>
-      <Main />
+      
       {!isAuth ?
       <Routes>
         <Route path="/registration" element={<Registration />}/>
         <Route path="/login" element={<Login />}/>
+        <Route path="/" element={<Main />}/>
       </Routes>
       :
       <Routes>
         <Route path="/profile" element={<Disk />}/>
+        <Route path="/" element={<Main />}/>
       </Routes>
       }
       
