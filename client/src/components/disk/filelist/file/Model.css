@@ -2,3 +2,18 @@
     width: 70vw; 
     max-width: 70vw;
 } 
+.sizeCard{
+    height: 15rem;
+    object-fit: cover;
+}
+.heart{
+    width: 3rem;
+
+}
+.view{
+    width: 2rem;
+
+}
+.text{
+    font-size: large;
+}

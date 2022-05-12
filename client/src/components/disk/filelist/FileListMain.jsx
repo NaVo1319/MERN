@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux"
 import FileMain from './file/FileMain'
 
 const FileList = (props) =>{
-    const files = useSelector(state => state.file.files).map(file => <FileMain key={file.id} file={file}/>)
+    const files = useSelector(state => state.file.files).map(file => {
+        return <FileMain  key={file.id} file={file}/>
+})
     return(
         <Container fluid>
-            <Row>
+            <Row xs="auto">
                 {files}
             </Row>
         </Container>

@@ -3,6 +3,7 @@ const User = require('../models/User')
 const config = require("config")
 const fs = require("fs")
 const File = require('../models/File')
+const FileFavorite = require('../models/FileFavorite')
 
 exports.create = async (req,res)=>{
     try {
@@ -90,5 +91,40 @@ exports.deleteFile=async(req,res)=>{
         }
     } catch (e) {
         console.log(e)
+    }
+}
+exports.LikeViews=async(req,res)=>{
+    try {
+        const {action}=req.body
+        console.log(action)
+        const file = await File.findOne({name:req.params.idFile,user:req.params.idUser})
+        if(file==null){return res.status(400).json({message:'File Not Found: '})}
+        if(action=='0'){
+            file.likes=file.likes-1
+            file.save()
+            return res.json({message:'Like Off'})
+        }else if(action=='1'){
+            file.likes=file.likes+1
+                file.save()
+                return res.json({message:'Like On'})
+        }else if(action=='2'){
+            file.views=file.views+1
+            file.save()
+            return res.json({message:file.views})
+        }else{
+            return res.status(400).json({message:'Unknown command'})
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+exports.getFavoriteFile= async(req,res)=>{
+    try {
+        console.log(req.user)
+        const files = await FileFavorite.find({user: req.params.idUser})
+        return res.json(files)
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({message: "It can't get files"})
     }
 }

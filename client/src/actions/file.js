@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {setFiles,addFile} from "../reducers/fileReducer";
+import {setFiles,addFile,FavFiles} from "../reducers/fileReducer";
 export function getFiles(){
     return async dispatch=>{
         try {
@@ -12,6 +12,7 @@ export function getFiles(){
         }
     }
 }
+
 export function uploadFile(file) {
     return async dispatch => {
         try {
@@ -48,16 +49,39 @@ export function deleteFile(file,userId){
         }
     }
 }
-export function getAllFailes(){
+export function getAllFailes(userID){
     return async dispatch=>{
         try {
             const response = await axios.get('http://localhost:5000/api/files/all',{
                 headers:{Authorization: 'Brearer '+localStorage.getItem('token')}
             })
             console.log(response.data)
+            if(userID!=undefined){
+                const responseTwo = await axios.get('http://localhost:5000/api/files/'+userID,{
+                headers:{Authorization: 'Brearer '+localStorage.getItem('token')}
+            })
+            dispatch(FavFiles(responseTwo.data))
+            }
             dispatch(setFiles(response.data))
+            
         } catch (e) {
             alert(e.response.data.message)
         }
     }
+}
+export function likeViewImage(file,userId,action){
+    return async dispatch=>{
+        try {
+           console.log('Click')
+            const path='http://localhost:5000/api/files/'+userId+'/'+file.name
+            const response = await axios.post(path,{
+                headers:{Authorization: 'Brearer '+localStorage.getItem('token')},
+                action
+
+            })
+        } catch (e) {
+            alert(e.response.data.message)
+        }
+    }
+
 }

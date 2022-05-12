@@ -5,8 +5,9 @@ import {getAllFailes, uploadFile} from "../../actions/file"
 import FileListMain from '../disk/filelist/FileListMain'
 const Main = () =>{
     const dispatch = useDispatch()
+    const id = useSelector(state => state.user.currentUser.id)
     useEffect(()=>{
-        dispatch(getAllFailes())
+        dispatch(getAllFailes(id))
     })
         return(
             <Container>

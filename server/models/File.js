@@ -7,8 +7,8 @@ const File = new Schema({
     date: {type: Date, default: Date.now},
     size: {type: Number, default: 0},
     tags:{type: String, default:''},
-    Likes:{type: Number, default:0},
     views:{type: Number, default:0},
+    likes:{type: Number, default:0},
     user: {type: ObjectId, ref: "User"},
 })
 module.exports = model('File', File)

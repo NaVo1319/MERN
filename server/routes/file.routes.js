@@ -8,6 +8,8 @@ router.get('',authMiddleware, fileController.getFiles)
 router.get('/all', fileController.getAllFiles)
 router.post('/upload',authMiddleware, fileController.uploadFile)
 router.get('/:idUser/:idFile',fileController.downloadFile)
+router.post('/:idUser/:idFile',fileController.LikeViews)
 router.delete('/:idUser/:idFile',authMiddleware,fileController.deleteFile)
+router.get('/:idUser',authMiddleware,fileController.getFavoriteFile)
 
 module.exports = router

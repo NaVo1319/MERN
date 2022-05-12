@@ -7,10 +7,11 @@ import React, { useState } from "react"
 
 const Disk = () =>{
     const email = useSelector(state => state.user.currentUser.email)
+    const id = useSelector(state => state.user.currentUser._id)
     const dispatch = useDispatch()
     const currentDir=useSelector(state=>state.file.currentDir)
     useEffect(()=>{
-        dispatch(getFiles(),[])
+        dispatch(getFiles(id),[])
     })
     const fileUploadHandler=(event)=>{
         const files=[...event.target.files]
